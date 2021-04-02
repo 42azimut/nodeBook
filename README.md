@@ -1,4 +1,6 @@
 # NodeJS 교과서  by 제로초
+[github 소프코드](https://github.com/gilbutITbook/080229)
+[깃헙 제로초](https://github.com/zerocho/nodejs-book)
 
 ## ch2 알아두어야할 자바스크립트
 
