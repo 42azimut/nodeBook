@@ -8,6 +8,11 @@
 - 
 - Es2015 부터  자바스크립트와 노드는 API들이 콜백대신 프로미스기반으로 재구성 횐다. 프로미스 매우 중요! 
 - 프로미스는 : 실행은 바로 하되, 결과값은 나중에 받는 객체. 결과 값은 실행이 완료된후 then, catch 메서드를 통해 받음!
+- 코드를 바같으로 뺴낼수 잇음! 
+- 코드를 치고, then()으로 불러온다! 콜백은 여전히 스콥 안에서 실행!
+- 프로미스를 왜 쓰는가? 어떤 동작을 한다. 그 동작이 성공 또는 실패가 가능하기 떄문에! 어떤 파일을 읽어와! 또는 네이버에 요청을 하고 와! 이럴떄 성공 또는 실패가 있다. 요청이 실패할수 있기 때문에..비동기는 실패할수 잇는코드를 작성! 
+
+
     1) 프로미스 객체 생성
     ```
     const promise = new Promise((resolve, reject) => {
@@ -15,7 +20,7 @@
             reolve('success');
         } else {
             reject('failed');
-        }
+        } 
     });
     promise
         .then((msg) = {
@@ -28,7 +33,21 @@
             console.log("무조건 실행됨!)   //무조건 실행!!
         })
     ```
-
+### 2.1.8 async / await 
+- try / catch 사용한다! 트라이가 리졸브 역활, 리젝트는 캣치가 한다!
+- await 이 프로미스의 then 역활을 한다!
+```
+const findAndSaveUser = async (Users) => {
+    try {
+        let user = await Users.findOne({});
+        user.name = 'Azimut';
+        user = await user.save();
+        user = await Users.findOne({getnder: 'male'});
+    } catch (err) {
+        console.error(err);
+    }
+};
+```
 
 ## ch4  http 모듈로 서버 만들기
 
