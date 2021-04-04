@@ -81,6 +81,7 @@ os.arch() 등등
 - 가운데 주소 기준으로 위쪽은 기존 노드 url
 - 아래쪽은 WHATWG 의 url 구분방법!
 <img src="./img_md//WHATWG_ADRESS.jpeg">
+
 - url 모듈안에 URL 생성자 있음! 이 생성자에 주소를 넣어 객체로 만들면 주소가 부분별로 정리!
 - url.parse(adress) : 주소를 분해! 속성 확인! username,password vs auth 등!!
 - url.foramt(객체) : WHATWG 방식과 url 과 기존 노드의 url 모두 사용간으! 분해 했던 url 객체를 원래 상태로 조립! 
