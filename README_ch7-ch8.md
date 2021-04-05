@@ -104,4 +104,41 @@ MySQL [nodejs]> CREATE TABLE nodejs.comments (
 - `npm i express morgan nunjucks sequelize sequelize-cli mysql2`
   - mysql2  는 시퀄라이즈 와 mysql 을 이어주는 드라이버이다. 
 - `npm i -D nodemon`
-- `npx sequelize init`
+- `npx sequelize init` 
+
+### 7.6.3 관계 정의하기.
+- 사용자 한명은 댓글 여러개 가능! but 댓글 한개는 사용자가 단 한명(여려명 불가)
+- 이러한 관계를 1:N 관계 (사용자 1, 댓글 N)
+- 다른 예, 일대일 또는 다대다 관계
+- 1:1 관계로는 사용자와 사용자에 대한 정보 테이블. 정보 테이블도 한사람을 가리킨다.
+- N:M 관계로는 게시글 테이블과 해시태그(#) 테이블 관계가 있다. 한 게시글에 해시태그가 여러개 달릴수 있고, 한 해시태그에 여러 게시글이 달릴수 잇다. 
+
+#### 7.6.3.1  (1 : N)
+- hasMany 메서드 사용  <--> belongsTo 메서드 사용
+  - `db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });`
+  - `db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' }`
+
+```
+                        1      :      N
+
+                            hasMany
+                      User < ------ > Comment
+                            belongsTo
+```
+- 다른 모델의 정보가 들어 있으면 belongsTo
+
+#### 7.6.3.2 (1:1)
+- hasOne 메서드 사용
+- `db.User.hasOne(db.Info, { foreignKey: 'UserId', sourceKey: 'id'});`
+- `db.User.belongsTo(db.User, { foreignKey: 'UserId', targetKey: 'id'});`
+
+#### 7.6.3.3 (N:M)
+- `db.Post.belongsToMany(db.HashTag, { through: 'PostHashtag' });`
+- `db.HashTag.belongsToMany(db.Post, { through: 'PostHashtag' });`
+
+### 7.6.4  쿼리 알아보기
+  - p.329 ~ 332
+
+#### 7.6.4.1 관계 쿼리 
+
+~시작~
