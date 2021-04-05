@@ -4,6 +4,10 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
+const { send } = require('process');
+
 
 dotenv.config();
 const app = express();
@@ -24,6 +28,55 @@ app.use(session({
   },
   name: 'session-cookie',
 }));
+
+// 서버 시작시 폴더 만들기
+try {
+  fs.readdirSync('uploads');
+} catch (error) {
+  console.error('uploads 폴더가 없기 떄문에 uploads 폴더를 생성합니다.');
+  fs.mkdirSync('uploads');
+}
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination(req, file, done) {
+      done(null, 'uploads/');
+    },
+    filename(req, file, done) {
+      const ext = path.extname(file.originalname);
+      done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1025 },
+});
+
+app.get('/upload', (req, res) => {
+  res.sendFile(path.join(__dirname, 'multipart.html'));
+});
+
+app.post('/upload', upload.fields([{name: 'image1'}, {name:'image2'}]),
+  (req, res) => {
+    console.log(req.files, res.body);
+    // res.sendFile(path.join(__dirname, '/index.html'));
+    res.send('OKOK uploaded');
+  }
+);
+// 단일 파일 업로드 미들웨어
+// app.post('/upload', upload.single('image'), (req, res) => {
+//   console.log(req.file, req.body);
+//   res.send('OK')
+// });
+
+// // 멀티파일 업로드 미들웨어 => 위와 비교
+// app.post('/upload', upload.array('many'), (req, res) => {
+//   console.log(req.files, req.body);
+//   res.send('OK')
+// });
+
+// app.use((req, res, next) => {
+//     console.log('모든 요청이 다 실행됩니다.');
+//     next();
+// });
 
 app.get('/', (req, res, next) => {
   console.log('GET / 요청에서만 실행됩니다.');

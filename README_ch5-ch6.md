@@ -70,3 +70,23 @@ app.use(express.urlencoded({ extended: false }));
 - 세션 관리용 미들웨어!
 - 로그인 등 이유로 세션을 구현하거나, 특정 사용자를 위한 데이터를 임시적으로 저장할때 유용.
 - 세션은 사용자별로 req.session 객체 안에 유지된다! 
+
+#### 6.2.6 미들웨어의 특성 활용하기
+- 미들웨어는 req, res, next를 매개변수로 가지는 함수. 
+- 단, 에러처리 미들웨어는 err, req, res, next 를 가진다.
+- 또한, 내부적으로 next 호출하는 미들웨어가 잇다. 
+- next를 호출 하지 않는 미들웨어는 res.send 또는 res.sendFile 메서드로 응답해야 한다.
+- 정적 파일을 제공하는 경우 : express.json, express.urlencoded, express.Parser 미들웨어는 실행 되지 않는다! 
+
+- 미들웨어 간에 데이터 전달방법
+    ```
+    app.use((req, res, next) => {
+        req.data = 'my data';   // 데이터 넣기
+        next();
+    }, (req, res, next) => {
+        console.log(req.data);   // 데이타 받기
+    })
+    ```
+#### 6.2.7 multer
+- 이미지, 동영상 여러 파일들을 멀티파트 형식으로 업로드 할때 사용하는 미들웨어.
+- `npm i multer`
