@@ -3,7 +3,7 @@
 
 ```
 # 설치 시작! 
-npm init      
+npm init
 # package.json >>> scripts  start:nodemon app
 # npm start 서버 실행!
 
@@ -37,19 +37,22 @@ npm i -D nodemon
     - `npm i morgan cookie-parser express-session dotenv`
 
 #### 6.2.1 morgan
+- 로그외 추가 정보 제공
 - `app.use(morgan('dev'));`  
 - 인수로 dev 외 combined, common, short, tiny 등 
+- 개발은 dev, 배포는 combined
 - GET / 500 8.039 ms - 50   
 - [http 메서드][주소][http상태코드][응답속도]-[응답바이트]
 
 #### 6.2.2 staic
-- static 미들웨어는 정적파일 제공하는 라어투 역활!
+- static 미들웨어는 정적파일 제공하는 라우터 역활!
 - app.use('요청경로', express.static('실제경로'));
 - `app.use('/', express.static(path.join(__dirname, 'public')));`
 - public 폴더를 만들어두고, 그안에 css, js, img 파일들을 넣으면 접근 가능!
+- public_2021 등 폴더명을 네이밍 하면 보안취약점을 예방할수 있다.
 
 ### 6.2.3 body-parser
-- 요청의 본문에 이쓴ㄴ 데이터를 해석해여 req, body 객체로 만들어 주는 미들웨어! 보통 폼데이터나 AJAX 요청 데이터를 처리! 
+- 요청의 본문에 있는 데이터를 해석해서 req, body 객체로 만들어 주는 미들웨어! 보통 폼데이터나 AJAX 요청 데이터를 처리! 
 - 단, 멀티파트(이미지, 동영상, 파일) 데이터 처리 못함! 이경우 multer 모듈 사용하면됨!
 ```
 app.use(express.json());
@@ -60,11 +63,23 @@ app.use(express.urlencoded({ extended: false }));
 - URL-encoded 는 주소형식으로 데이터를 보내는 방식! 
 - 폼 전송은 위 방식으로 사용! 
 
-#### 6.2.4 cookie-parse
+#### 6.2.4 cookie-parser
 - cookie-parser 는 요청에 동봉된 쿠키를 해석해 req.cookie 객체로 만든다.
 - 해석된 쿠키는 req.cookie에 객체로 들어감
 - 예, name=hongildong 쿠키를 보냈다면, req.cookie는 {name: 'hongildong'}
-- 사용법 :  res.cookie(키, 값, 옵션) 
+- 사용법 :  res.cookie(키, 값, 옵션)
+- options: domain, expries, httpOnly, maxAge, path, secure, signed
+- sigend: true 설정하면 쿠키뒤에 서명이 붙는다. 내 서버가 쿠키를 만들었다는 것을 검증 할수 있다. 서명 옵션 트루 하는것이 좋다. 
+- 서명 비밀키는 cookieParser 미들웨어에 인수로 넣은 process.env.COOKIE_SECRET
+```
+req.cookie('name', 'LeeSunShin', {
+    expires: new Date(Date.now() + 900000),
+    httpOnly: true,
+    secure, true,
+});
+res.clearCookie('name', 'LeeSunShin', {httpOnly: true, secure: true});
+```
+
 
 #### 6.2.5 express-session
 - 세션 관리용 미들웨어!
