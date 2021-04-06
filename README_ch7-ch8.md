@@ -141,4 +141,6 @@ MySQL [nodejs]> CREATE TABLE nodejs.comments (
 
 #### 7.6.4.1 관계 쿼리 
 
+### 7.6.5 쿼리 수행하기
+
 ~시작~
