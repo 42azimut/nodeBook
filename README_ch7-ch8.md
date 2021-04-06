@@ -144,3 +144,12 @@ MySQL [nodejs]> CREATE TABLE nodejs.comments (
 ### 7.6.5 쿼리 수행하기
 
 ~시작~
+- .env   // config.json 에서 process.env 사용방법! 15.1.2
+- config.json 삭제 그리고 config.js 생성
+```
+
+```
+
+
+  `
+- p.400 :
