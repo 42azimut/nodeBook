@@ -19,4 +19,24 @@
   [ch9](https://github.com/42azimut/nodeBook/blob/master/README_ch9.md)
     - ch9 익스프레스로 SNS 서비스 만들기
   
+ [ch10]()
+  - ch10 웹API 서버 만들기
+ 
+ [ch11]()
+  - ch11 노드 서비스 테스트 하기
+ 
+ [ch12]()
+  - ch12 웹 소켓으로 실시간 데이터 전송하기
+ 
+ [ch13]()
+  - ch13 실시간 경매 시스템 만들기
+  
+ [ch14]()
+  - ch14 CLI 프로그램 만들기
+ 
+ [ch15]()
+  - ch15 AWS와 GCP로 배포하기
+ 
+ [ch16]()
+  - ch16 서버리스 노드 개발
  
