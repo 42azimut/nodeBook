@@ -66,5 +66,26 @@ static associate(db) {
 
 - `npx sequelize db:create`  // 데이터 베이스 명령입력.
 
+### 9.3 Passport 모듈로 로그인 구현하기
+- 소셜 로그인  & 로컬 로그인
+#### 9.3.1 로컬 로그인 구현하기
+- 자체 로그인 구현하기 위해 : 패스포트에서 passport-local 모듈 필요. 이미 설치.
+  1) 회원가입 2) 로그인 3) 로그아웃 라우터생성
 
+- 조건 1 : 로그인한 사용자는 회원가입과 로그인 라우터에 접근 안되어야 함.
+- 조건 2 : 로그인 안한 유저는 로그아웃 라우터 접근 불가.
+- 따라서 라우터에 따라 접근 권한을 제어 하는 미들웨어가 필요.
+- Passport가 req  객체에 추가해주는 **req.isAuthenticated**  메서드 사용
 
+- routes/page.js
+  - res.locals.user 속성에 **req.user** 담음. 넌적스에서 user 객체를 통해 사용자 정보 접근 가능! 
+
+  ```
+  router.user((req, res, next) = > {
+    res.locals.user = req.uesr;
+    ... 
+    next();
+  });
+  ```
+
+- routes/auth.js   (회원가입, 로그인, 로그아웃 라우터 작성)
