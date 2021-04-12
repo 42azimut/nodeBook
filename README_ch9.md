@@ -89,3 +89,36 @@ static associate(db) {
   ```
 
 - routes/auth.js   (회원가입, 로그인, 로그아웃 라우터 작성)
+- app.js에 연결할때 /auth 접두사를 붙임! 라우터 주소는  /auth/join, /auth/login, /auth/logout
+  1) 회원가입 라우터
+    - 기존 같은 이메일 가입자 사용자(exUser) 있는지 조회 한뒤, 있으면 회원가입으로 보냄.
+    - 같은 사용자 이메일 없으면, 비번 암호화하고, 사용자 정보 생성
+    - 비번 암호화 저장. bcrypt모듈 사용. 
+    - bcrypt 모듈의  hash 메서드 사용하면 쉽게 암호화 가능. 
+    - bcrypt 두번째 인수는 pbkdf2  반복횟수 비슷한 기능. 12이상 추천 31까지 사용가능.
+    - 프로미스 지원함수이므로 await을 사용함.
+
+  2) 로그인 라우터
+    - 로그인 요청이 들어오면 passport.authenticate('local') 미들웨어가 로컬 로그인 전략을 수행.
+    - 전략코드에서 전략이 성공하거나 실패하면 authenticate 메서드의 콜백 함수가 실행.
+    - 콜백함수의 첫번째 매개변수(authError)값이 있다면 실패. 
+    - 두번째 매개변수 값이 있다면 성공. req.login 메서드 호출
+  
+  3) 로그아웃 라우터
+    - req.logout()메서드는 req.user 객체를 제거.
+    - req.session.destroy 는 req.session 객체의 내용을 제거
+  
+- passport/localStrategy.js
+- passport-local 모듈에서 Strategy 생성자를 불러와 그 안에 전략을 구현
+  1) LocalStrategy 생성자의 첫번째 인수로 주어진 객체는 전략에 관한 설정을 함.
+    - usernameField 와 passwordField 에는 일치하는 로그인 라우터의 req.body 속성명을 적으면 됨. req.body.email에 이메일 주소가, req.body.password 비번이 담겨 들어오므로 email과 password 를 각각 넣는다.
+  2) 실제 전략 수행 async 함수. 
+    - LocalStrategy 생성자의 두번째 인수로 들어감. 
+    - 첫번째 인수에서 넣어준 email, password는 각각  async 함수의 첫번재와 두번째 매개변수가 됨. 세번째 매개변수인 done 함수는 passport.authenticate의 콜백 함수이다.
+
+- 전략 내용은
+  1) 먼저 사용자 디비에서 일치하는 이메일이 있는지 찾은후, 있으면 bcrypt의 compare함수로 비번 비교. 
+  2) 비번 일치하면 done 함수의 두번째 인수로 사용자 정보 넣어 보냄.
+  3) 두번째 인수를 사용하지 않는 경우는 로그인에 실패 했을 때뿐. 
+  4) done 함수의 첫번째 인수를 사용하는 경우 서버 쪽에서 에러가 발생했을때
+  5) 세번째 인수를 사용하는 경우는 로그인 처리 과정에서 비번이 일치 하지 않거나 존재 하지 않는 회원일때와 같은 사용자 정의 에러가 발생했을 때 이다. 
