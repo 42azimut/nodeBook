@@ -25,8 +25,7 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(30),
         allowNull: true,
       },
-    }, 
-    {
+    }, {
       sequelize,
       timestamps: true,
       underscored: false,
@@ -34,9 +33,10 @@ module.exports = class User extends Sequelize.Model {
       tableName: 'users',
       paranoid: true,
       charset: 'utf8',
-      collate: 'utf8_general_ci'
+      collate: 'utf8_general_ci',
     });
   }
+
   static associate(db) {
     db.User.hasMany(db.Post);
     db.User.belongsToMany(db.User, {
@@ -48,6 +48,6 @@ module.exports = class User extends Sequelize.Model {
       foreignKey: 'followerId',
       as: 'Followings',
       through: 'Follow',
-    })
+    });
   }
 };
