@@ -1,4 +1,4 @@
-##  NodeJS 교과서 by zorocho
+##  NodeJS 교과서 by ZeroCho
 
 - ### chapter _ README
 
