@@ -12,11 +12,11 @@
     - ch5 패키지 매니저
     - ch6 익스프레스 웹 서버 만들기
   
-  [ch7 ~ ch8](https://github.com/42azimut/nodeBook/blob/master/README_ch7-ch8.md)
+  [ch7 ~ ch8_DONE](https://github.com/42azimut/nodeBook/blob/master/README_ch7-ch8.md)
     - ch7 MYSQL
     - ch8 몽고디비
   
-  [ch9](https://github.com/42azimut/nodeBook/blob/master/README_ch9.md)
+  [ch9_DONE](https://github.com/42azimut/nodeBook/blob/master/README_ch9.md)
     - ch9 익스프레스로 SNS 서비스 만들기
 
    [ch10]()
