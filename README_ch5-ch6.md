@@ -105,3 +105,41 @@ res.clearCookie('name', 'LeeSunShin', {httpOnly: true, secure: true});
 #### 6.2.7 multer
 - 이미지, 동영상 여러 파일들을 멀티파트 형식으로 업로드 할때 사용하는 미들웨어.
 - `npm i multer`
+
+### 6.3 Router 객체로 라우팅 분리하기
+- user.js
+```
+const express = require('express');
+const router = express.Router();
+
+// GET router
+router.get('/', (req, res) => {
+  let name = 'Jayden';
+  res.send(`<h1>router-get hello User ${name} Router</h1>`);
+});
+
+module.exports = router;
+```
+ - app.js
+ ```
+const indexRouter = require('./route');
+const userRouter = require('./router/user');
+
+app.use((req, res, next) => {
+    res.status(404).send('Not Found');
+});
+ ```
+
+- 라우터 주소에 정규 표현식 사용하기
+```
+router.get('/user/:id', function(req, res) {
+    console.log(req.params, req.query);
+});
+```
+- :id에 해당하는 1 이나 123을 조회할수 있다는 점이며, req.params 객체 안에 들어 있다.
+- :id면 req.params.id로, :type 이면 req.params.type으로 조회 가능
+- 단, 이패턴 주의점: 일반 라우터보다 뒤에 위치해야함. 와이들카드 역활.
+
+### 6.4 req, res 객체 살펴보기
+- req.app: req 객체를 통해 app 객체에 접근 가능. 예) req.app.get('port)
+- req.body: body-parse
