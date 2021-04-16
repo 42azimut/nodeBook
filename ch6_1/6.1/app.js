@@ -1,18 +1,21 @@
 const express = require('express');
 const path = require('path');
-
-const app = express();
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const dotenv = require('dotenv');
 
 PORT = 3000;
 dotenv.config();
-
+const app = express();
 app.set('port', process.env.PORT || PORT);
 
-app.use((req, res, next) => {
-  console.log('모든 요청 다 실행된다.');
-  next();
-});
+
+
+
+
+
+
 
 app.get( '/', (req, res, next) => {
   console.log('GET / 요청에서만 실행');
@@ -24,13 +27,6 @@ app.get( '/', (req, res, next) => {
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).send(err.message);
-});
-
-
-app.get('/', (req, res) => {
-  //res.send(`Hello my port ${PORT} waiting`);
-  res.sendFile(path.join(__dirname, '/index.html'));
-  //console.log(path.join(__dirname, '/index.html'));
 });
 
 app.listen(app.get('port'), () => {
