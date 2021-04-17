@@ -125,6 +125,11 @@ db.users.remove({name: 'iu_love'});
 ```
 
 ## 8.6 몽구스 사용하기
+- 기본 설치
+  - npm init
+  - npm i express morgan nunjucks mongoose
+  - npm i -D nodemon
+
 
 
 
