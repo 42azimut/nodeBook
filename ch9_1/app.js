@@ -36,6 +36,7 @@ app.use(session({
 
 app.use('/', pageRouter);
 
+//에러처리 미들웨어
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;

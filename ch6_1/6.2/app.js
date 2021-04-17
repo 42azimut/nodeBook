@@ -31,7 +31,7 @@ try {
   fs.readdirSync('multer_uploads');
 } catch (error) {
   console.error('uploads 폴더가 없어 uploads 폴더 생성 합니다.');
-  fs.mkdirSync('multer_uploads');
+  fs.mkdirSync('multer_uploads'); 
 }
 
 const upload = multer({
@@ -70,7 +70,6 @@ app.post('/upload', upload.fields([{name: 'image1'}, {name: 'image2'}]),
   res.send('OoooKKKK');
 });
 
-
 app.use((req, res, next) => {
   console.log(('모든 요청에서 실행됩니다.'));
   next();
@@ -90,4 +89,4 @@ app.use((err, req, res, next) => {
 
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), `에서 대기중`);
-});
+}); 
