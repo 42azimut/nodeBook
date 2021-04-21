@@ -8,7 +8,8 @@ const dotenv = require('dotenv');
 const passport = require('passport');
 
 dotenv.config();
-const pageRouter =require('./routes/page');
+const pageRouter = require('./routes/page');
+const authRouter = require('./routes/auth');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
@@ -48,6 +49,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', pageRouter);
+app.use('/auth', authRouter);
+
 
 //에러처리 미들웨어
 app.use((req, res, next) => {

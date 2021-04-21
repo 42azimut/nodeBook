@@ -1,6 +1,6 @@
 const passport = require('passport');
 const local = require('./localStrategy');
-const kakao = require('./kakaoStrategy');
+//const kakao = require('./kakaoStrategy');
 const User = require('../models/user');
 
 
@@ -17,4 +17,6 @@ module.exports = () => {
       .then(user=>done(null, user))   //조회 정보를 req.user에 저장
       .catch(err=>done(err));
   });
+  local();
+  //kakao();
 }

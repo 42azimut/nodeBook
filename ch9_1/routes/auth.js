@@ -1,21 +1,21 @@
 const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-const { isLoggedIn, isNotLoggedin } = require('./middlewares');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const User = require('../models/user');
 
 const router = express.Router();
 
 // Sign Up
-router.post('join', isNotLoggedin, async(req, res, next) => {
+router.post('join', isNotLoggedIn, async(req, res, next) => {
   const { email, nick, password } = req.body;
   try {
     const exUser = await User.findOne({ where: { email } });  //기존유저 존재확인
     if (exUser) {
       return res.redirect('/join?error=exit');
     }
-    const hash = await bcrypt.hash(password, 12);
-    await User.create({
+    const hash = await bcrypt.hash(password, 12);  //hash()메서드사용 , 프로미스 지원 / await 사용
+    await User.create({  //기존유저 없으면 비번암호화(hash), 유저정보 객체 생성
       email,
       nick,
       password: hash,
@@ -28,14 +28,14 @@ router.post('join', isNotLoggedin, async(req, res, next) => {
 });
 
 // Log In
-router.post('/login', isNotLoggedin, (req, res, next) => {
-  passport.authenticate('local', (authError, user, info) => {
-    if (authError) {
+router.post('/login', isNotLoggedIn, (req, res, next) => {
+  passport.authenticate('local', (authError, user, info) => { //첫번쨰 매개변수 실패, 두번째 매개변수값 성공
+    if (authError) {  
       console.error(authError);
       return next(authError);
     }
     if (!user) {
-      return res.redirect(`/?loginErro=${info.message}`);
+      return res.redirect(`/?loginError=${info.message}`);
     }
     return req.login(user, (loginError) => {
       if (loginError) {
@@ -49,8 +49,8 @@ router.post('/login', isNotLoggedin, (req, res, next) => {
 
 // Log Out
 router.get('/logout', isLoggedIn, (req, res) => {
-  req.logout();
-  req.session.destroy();
+  req.logout();  // req.user 객체를 제거
+  req.session.destroy();  // 요청.세션의 객체 내용 제거
   res.redirect('/');
 });
 
