@@ -7,12 +7,12 @@ const User = require('../models/user');
 const router = express.Router();
 
 // Sign Up
-router.post('join', isNotLoggedIn, async(req, res, next) => {
+router.post('/join', isNotLoggedIn, async(req, res, next) => {
   const { email, nick, password } = req.body;
   try {
     const exUser = await User.findOne({ where: { email } });  //기존유저 존재확인
     if (exUser) {
-      return res.redirect('/join?error=exit');
+      return res.redirect('/join?error=exist');
     }
     const hash = await bcrypt.hash(password, 12);  //hash()메서드사용 , 프로미스 지원 / await 사용
     await User.create({  //기존유저 없으면 비번암호화(hash), 유저정보 객체 생성
