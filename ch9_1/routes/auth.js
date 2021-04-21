@@ -28,3 +28,32 @@ router.post('join', isNotLoggedin, async(req, res, next) => {
 });
 
 // Log In
+router.post('/login', isNotLoggedin, (req, res, next) => {
+  passport.authenticate('local', (authError, user, info) => {
+    if (authError) {
+      console.error(authError);
+      return next(authError);
+    }
+    if (!user) {
+      return res.redirect(`/?loginErro=${info.message}`);
+    }
+    return req.login(user, (loginError) => {
+      if (loginError) {
+        console.error(loginError);
+        return next(loginError);
+      }
+      return res.redirect('/');
+    });
+  })(req, res, next);  //미들웨어 내의 미들웨어에는 (req, res, next) 붙인다.
+});
+
+// Log Out
+router.get('/logout', isLoggedIn, (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+});
+
+module.exports = router;
+
+
