@@ -25,7 +25,7 @@
   [ch9-1_again](https://github.com/42azimut/nodeBook/blob/master/README_ch9.md)
     - ch9_2nd study 익스프레스로 SNS 서비스 만들기
 
-   [ch10]()
+   [ch10](https://github.com/42azimut/nodeBook/blob/master/README_ch10.md)
     - ch10 웹API 서버 만들기
 
    [ch11]()
@@ -38,7 +38,7 @@
     - ch13 실시간 경매 시스템 만들기
 
    [ch14]()
-    - ch14 CLI 프로그램 만들기
+    - ch14 CLI 프로그램 만들기 
 
    [ch15]()
     - ch15 AWS와 GCP로 배포하기
