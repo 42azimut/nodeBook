@@ -49,8 +49,6 @@ app.use(passport.session());
 
 app.use('/v1', v1);
 app.use('/auth', authRouter);
-
-app.use('/auth', authRouter);
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
