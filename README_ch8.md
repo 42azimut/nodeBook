@@ -131,6 +131,13 @@ db.users.remove({name: 'iu_love'});
   - npm i -D nodemon
 
 
+```
+ - 에러 처리 실패
+ - 코멘트 스키마가 몽구스 디비(아틀라스 클라우드)에 연결 안됨.(저장 실패)
+  아래 와 같은 에러가 나오는데 지난번도 그랬던기억이..
+  
+Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+```
 
 
 
