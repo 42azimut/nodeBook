@@ -31,7 +31,7 @@
    [ch11]()
     - ch11 노드 서비스 테스트 하기
 
-   [ch12]()
+   [ch12](https://github.com/42azimut/nodeBook/blob/master/README_ch12.md)
     - ch12 웹 소켓으로 실시간 데이터 전송하기
 
    [ch13]()
